@@ -1,0 +1,88 @@
+plugins {
+	id 'java'
+	id 'org.liquibase.gradle' version '2.0.4'
+	id 'org.springframework.boot' version '3.4.1'
+	id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'ru.mai.lessons.rpks'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(17)
+	}
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+ext {
+	set('springCloudVersion', "2024.0.0")
+}
+
+dependencies {
+
+	// spring web
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+
+	// spring open feign
+	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+
+	// spring security
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+
+	// open api, swagger
+	implementation group: 'org.springdoc', name: 'springdoc-openapi-starter-webmvc-ui', version: '2.0.2'
+	implementation 'io.swagger:swagger-models:1.6.10'
+
+	// spring validation
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+	// spring jpa
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+	// redis
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+	testImplementation 'org.testng:testng:7.1.0'
+
+	// code generator
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+
+	// databases
+	implementation 'org.liquibase:liquibase-core'
+	implementation 'org.postgresql:postgresql'
+
+	// JWT token
+	implementation 'com.auth0:java-jwt:4.2.0'
+
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+
+	// test
+	testImplementation 'org.testcontainers:testcontainers:1.17.6'
+	testImplementation "org.testcontainers:junit-jupiter:1.17.6"
+	testImplementation "org.testcontainers:postgresql:1.17.6"
+	testImplementation "org.springframework.boot:spring-boot-starter-test"
+	testImplementation 'io.rest-assured:rest-assured:5.3.0'
+	testCompileOnly "org.projectlombok:lombok:1.18.38"
+	testAnnotationProcessor 'org.projectlombok:lombok:1.18.38'
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+	}
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}

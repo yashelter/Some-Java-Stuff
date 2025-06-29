@@ -1,0 +1,58 @@
+plugins {
+    id 'java'
+}
+
+group = 'org.example'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+compileJava {
+    sourceCompatibility = '17'
+    targetCompatibility = '17'
+}
+
+dependencies {
+    // kafka
+    implementation 'org.apache.kafka:kafka-clients:3.7.1'
+
+    // logging
+    implementation 'ch.qos.logback:logback-classic:1.4.5'
+
+    // code generator
+    compileOnly 'org.projectlombok:lombok:1.18.36'
+    annotationProcessor 'org.projectlombok:lombok:1.18.36'
+
+    // configuration
+    implementation 'com.typesafe:config:1.4.2'
+
+    // databases
+    implementation 'org.postgresql:postgresql:42.7.2'
+    implementation 'com.zaxxer:HikariCP:5.0.1'
+    implementation 'org.jooq:jooq:3.17.8'
+
+    // redis
+    implementation 'redis.clients:jedis:4.3.1'
+
+    // json
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.14.2'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.4.2'
+
+    // test
+    testImplementation 'org.testcontainers:testcontainers:1.17.6'
+    testImplementation "org.testcontainers:junit-jupiter:1.17.6"
+    testImplementation "org.testcontainers:kafka:1.17.6"
+    testImplementation "org.testcontainers:postgresql:1.17.6"
+    testCompileOnly "org.projectlombok:lombok:1.18.36"
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.36'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+    testImplementation 'org.apache.kafka:kafka-clients:3.7.1'
+    testImplementation 'com.redis.testcontainers:testcontainers-redis-junit:1.6.2'
+}
+
+test {
+    useJUnitPlatform()
+}

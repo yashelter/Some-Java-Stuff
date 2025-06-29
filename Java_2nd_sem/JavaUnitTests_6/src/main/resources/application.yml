@@ -1,0 +1,30 @@
+spring:
+  application:
+    name: java-unit-tests
+  datasource:
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    url: ${DB_DRIVER}://${DB_HOST}:${DB_PORT}/${DB_NAME}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      connection-test-query: SELECT 1
+      idle-timeout: 30000
+      connection-timeout: 30000
+      maximum-pool-size: 50
+      minimum-idle: 10
+      max-lifetime: 2000000
+      pool-name: SpringBootJPAHikariCP
+  liquibase:
+    liquibase-schema: public
+    default-schema: public
+    change-log: classpath:db/changelog/db.changelog-master.yaml
+    enabled: true
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        default_schema: public
+
+server:
+  port: ${APPLICATION_PORT}

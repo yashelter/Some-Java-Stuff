@@ -1,0 +1,30 @@
+# spring
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/rpks4
+    username: postgres
+    password: 123
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+
+# actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  info:
+    metrics:
+      enabled: true
+  endpoint:
+    health:
+      show-details: always

@@ -1,0 +1,16 @@
+global:
+  scrape_interval: 5s
+  evaluation_interval: 5s
+
+scrape_configs:
+  - job_name: 'spring-boot'
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: ['java-service-bff:5248', 'java-service-managment:5248']
+        labels:
+          group: 'spring-services'
+
+  - job_name: 'java-service'
+    metrics_path: '/metrics'
+    static_configs:
+      - targets: [ 'java-service-filtering:5248', 'java-service-deduplication:5248', 'java-service-enrichment:5248' ]

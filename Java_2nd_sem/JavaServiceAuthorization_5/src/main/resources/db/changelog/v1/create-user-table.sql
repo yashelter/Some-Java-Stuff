@@ -1,0 +1,1 @@
+﻿create table if not exists "user"  (id bigserial primary key,username VARCHAR(100) unique not null);
